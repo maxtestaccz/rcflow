@@ -102,7 +102,7 @@
 }
 
 .react-flow__edge {
-  stroke: #70f !important;
+  stroke: #70f;
   stroke-width: 2 !important;
 }
 
@@ -114,7 +114,7 @@
 }
 
 .dark .react-flow__edge {
-  stroke: #70f !important;
+  stroke: #70f;
 }
 
 /* Show handles on node hover */

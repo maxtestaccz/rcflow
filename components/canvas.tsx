@@ -60,7 +60,6 @@ function FlowCanvas() {
       const newEdge = {
         id: `edge-${Date.now()}`,
         ...params,
-        type: 'straight',
         style: { stroke: '#70f', strokeWidth: 2 },
       };
       setEdges(addEdge(newEdge, edges));
