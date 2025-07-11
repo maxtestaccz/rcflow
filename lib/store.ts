@@ -28,6 +28,9 @@ interface AppState {
   // Selected elements
   selectedNodes: Node[];
   setSelectedNodes: (nodes: Node[]) => void;
+  
+  // Delete node function
+  deleteNode: (nodeId: string) => void;
 }
 
 export const useAppStore = create<AppState>((set, get) => ({
@@ -83,4 +86,13 @@ export const useAppStore = create<AppState>((set, get) => ({
   // Selected elements
   selectedNodes: [],
   setSelectedNodes: (nodes) => set({ selectedNodes: nodes }),
+  
+  // Delete node function
+  deleteNode: (nodeId) => {
+    const { nodes, edges } = get();
+    const updatedNodes = nodes.filter(node => node.id !== nodeId);
+    const updatedEdges = edges.filter(edge => edge.source !== nodeId && edge.target !== nodeId);
+    set({ nodes: updatedNodes, edges: updatedEdges });
+    get().saveToHistory();
+  },
 }));
