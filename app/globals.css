@@ -148,6 +148,7 @@
   opacity: 0;
   transition: opacity 0.2s ease;
   z-index: 10;
+  cursor: pointer;
 }
 
 .react-flow__node.selected .resize-handle {
