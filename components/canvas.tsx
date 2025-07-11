@@ -155,7 +155,6 @@ function FlowCanvas() {
         zoomOnScroll={currentTool === 'select'}
         connectionMode="loose"
       >
-        <Background color="#aaa" gap={16} />
         <Controls 
           position="bottom-right" 
           className="bg-white dark:bg-[#101010] border border-gray-200 dark:border-gray-700"
