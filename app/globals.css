@@ -230,7 +230,7 @@
   stroke: #70f;
   stroke-width: 2;
   stroke-dasharray: 5, 5;
-  animation: flow 1s linear infinite, glow-pulse 2s ease-in-out infinite;
+  animation: flow 1s linear infinite, 2s ease-in-out infinite;
   filter: drop-shadow(0 0 3px #70f);
 }
 
