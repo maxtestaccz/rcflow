@@ -25,19 +25,8 @@ const nodeTypes = {
   custom: CustomNode,
 };
 
-function FlowProjector({ setProjectFunction }: { setProjectFunction: (fn: any) => void }) {
-  const { project } = useReactFlow();
-  
-  useEffect(() => {
-    setProjectFunction(project);
-  }, [project, setProjectFunction]);
-  
-  return null;
-}
-
 function FlowCanvas() {
   const reactFlowWrapper = useRef<HTMLDivElement>(null);
-  const projectRef = useRef<any>(null);
   const {
     currentTool,
     setCurrentTool,
@@ -50,9 +39,7 @@ function FlowCanvas() {
     setSelectedNodes,
   } = useAppStore();
 
-  const setProjectFunction = useCallback((projectFn: any) => {
-    projectRef.current = projectFn;
-  }, []);
+  const { project } = useReactFlow();
 
   const onNodesChange = useCallback(
     (changes: NodeChange[]) => {
@@ -84,12 +71,11 @@ function FlowCanvas() {
   const onPaneClick = useCallback(
     (event: React.MouseEvent) => {
       if (currentTool === 'select') return;
-      if (!projectRef.current) return;
 
       const bounds = reactFlowWrapper.current?.getBoundingClientRect();
       if (!bounds) return;
 
-      const position = projectRef.current({
+      const position = project({
         x: event.clientX - bounds.left,
         y: event.clientY - bounds.top,
       });
@@ -112,7 +98,7 @@ function FlowCanvas() {
       // Auto-switch back to select mode after creating a shape
       setCurrentTool('select');
     },
-    [currentTool, nodes, setNodes, saveToHistory, setCurrentTool]
+    [currentTool, project, nodes, setNodes, saveToHistory, setCurrentTool]
   );
 
   const onSelectionChange = useCallback(
@@ -146,7 +132,6 @@ function FlowCanvas() {
   const onNodeDragStop = useCallback(() => {
     saveToHistory();
   }, [saveToHistory]);
-
   return (
     <div className="w-full h-full" ref={reactFlowWrapper}>
       <ReactFlow
@@ -170,7 +155,6 @@ function FlowCanvas() {
         zoomOnScroll={currentTool === 'select'}
         connectionMode="loose"
       >
-        <FlowProjector setProjectFunction={setProjectFunction} />
         <Controls 
           position="bottom-right" 
           className="bg-white dark:bg-[#101010] border border-gray-200 dark:border-gray-700"
